@@ -1,0 +1,17 @@
+{
+  "name": "healthy",
+  "version": "1.0.0",
+  "description": "a web for healthy management",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jifeng",
+  "license": "ISC",
+  "dependencies": {
+    "echarts": "^3.1.5",
+    "jquery": "^2.2.2",
+    "vue": "^1.0.20",
+    "weui": "^0.4.0"
+  }
+}

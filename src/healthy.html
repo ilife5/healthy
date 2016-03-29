@@ -2,197 +2,209 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>健康小助手</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>健康顾问</title>
+    <link rel="stylesheet" href="../node_modules/weui/dist/style/weui.min.css"/>
+    <style>
+        .v-hide {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-<form action="">
-    <section>
-        <h2>基本信息</h2>
-        <label>
-            身高:
-            <input type="checkbox" name="height">
+<form id="healthy" class="v-hide">
+    <div class="weui_cells_title">基本信息</div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">身高</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input  class="weui_input" v-model="height" type="tel" name="height" placeholder="请输入身高(cm)">
+            </div>
+        </div>
+    </div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">体重</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" v-model="weight" type="tel" name="weight" placeholder="请输入体重(kg)">
+            </div>
+        </div>
+    </div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">年龄</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" v-model="age" type="tel" name="age" placeholder="请输入年龄">
+            </div>
+        </div>
+    </div>
+    <div class="weui_cells_title">精力</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in energyList" for="energy_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="energy" type="radio" class="weui_check" value="{{index}}" name="energy" id="energy_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
         </label>
-        <label>
-            体重:
-            <input type="checkbox" name="weight">
+    </div>
+    <div class="weui_cells_title">心态</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in mentalityList" for="mentality_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="mentality" type="radio" class="weui_check" value="{{index}}" name="mentality" id="mentality_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
         </label>
-        <label>
-            年龄:
-            <input type="text" name="age">
+    </div>
+    <div class="weui_cells_title">睡眠</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in sleepList" for="sleep_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="sleep" type="radio" class="weui_check" value="{{index}}" name="sleep" id="sleep_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
         </label>
-    </section>
-    <section>
-        <h2>精力</h2>
-        <label>
-            <input type="checkbox" name="energy" value="1">
-            起床后浑身无力，无精打采，精力严重不足，不能应对日常工作和学习压力
+    </div>
+    <div class="weui_cells_title">应变能力</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in adaptabilityList" for="adaptability_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="adaptability" type="radio" class="weui_check" value="{{index}}" name="adaptability" id="adaptability_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
         </label>
-        <label>
-            <input type="checkbox" name="energy" value="2">
-            起床后没有精神，应付日常生活和工作压力能力很弱
+    </div>
+    <div class="weui_cells_title">抵抗力</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in resistanceList" for="resistance_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="resistance" type="radio" class="weui_check" value="{{index}}" name="resistance" id="resistance_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
         </label>
-        <label>
-            <input type="checkbox" name="energy" value="3">
-            起床后精力比较好，勉强能够应付日常生活和工作压力
+    </div>
+    <div class="weui_cells_title">视力</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in visionList" for="vision_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="vision" type="radio" class="weui_check" value="{{index}}" name="vision" id="vision_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
         </label>
-        <label>
-            <input type="checkbox" name="energy" value="4">
-            起床后神清气爽，精力充沛，能从容不迫地应付日常生活和工作压力
+    </div>
+    <div class="weui_cells_title">牙齿</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in toothList" for="tooth_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="tooth" type="radio" class="weui_check" value="{{index}}" name="tooth" id="tooth_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
         </label>
-    </section>
-    <section>
-        <h2>心态</h2>
-        <label>
-            <input type="checkbox" name="mentality" value="1">
-            总是想得很糟糕，或对周围的环境感到不安，逃避应该承担的责任
+    </div>
+    <div class="weui_cells_title">头发</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in hairList" for="hair_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="hair" type="radio" class="weui_check" value="{{index}}" name="hair" id="hair_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
         </label>
-        <label>
-            <input type="checkbox" name="mentality" value="2">
-            处事消极，很不愿意承担责任
+    </div>
+    <div class="weui_cells_title">肌肉和皮肤</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in skinList" for="skin_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="skin" type="radio" class="weui_check" value="{{index}}" name="skin" id="skin_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
         </label>
-        <label>
-            <input type="checkbox" name="mentality" value="3">
-            处事有些消极，在各方面要求下，能够承担应有责任
-        </label>
-        <label>
-            <input type="checkbox" name="mentality" value="4">
-            处事乐观，态度积极，乐于承担责任，不挑剔事物的巨细
-        </label>
-    </section>
-    <section>
-        <h2>睡眠</h2>
-        <label>
-            <input type="checkbox" name="sleep" value="1">
-            严重失眠
-        </label>
-        <label>
-            <input type="checkbox" name="sleep" value="2">
-            处事消极，很不愿意承担责任
-        </label>
-        <label>
-            <input type="checkbox" name="sleep" value="3">
-            久久不能入睡、睡眠不足的人身体状态较差
-        </label>
-        <label>
-            <input type="checkbox" name="sleep" value="4">
-            睡眠良好的标准是半小时内能自然入眠，青年和中年人睡眠应维持7-8小时睡眠，60岁及大于60岁的人睡眠时间须保证达到6小时
-        </label>
-    </section>
-    <section>
-        <h2>应变能力</h2>
-        <label>
-            <input type="checkbox" name="adaptability" value="1">
-            自己身处某种环境之中，看什么都别扭，或者一有变动就觉得焦虑
-        </label>
-        <label>
-            <input type="checkbox" name="adaptability" value="2">
-            身处环境变换时有较重焦虑、心理不适
-        </label>
-        <label>
-            <input type="checkbox" name="adaptability" value="3">
-            环境变化时有轻微焦虑，但能缓慢适应环境
-        </label>
-        <label>
-            <input type="checkbox" name="adaptability" value="4">
-            应变能力强，即使有轻微焦虑，但能很快能适应环境
-        </label>
-    </section>
-    <section>
-        <h2>抵抗力</h2>
-        <label>
-            <input type="checkbox" name="resistance" value="1">
-            一年内经常感冒，抵抗力明显很差，必须服用药物
-        </label>
-        <label>
-            <input type="checkbox" name="resistance" value="2">
-            一年内感冒次数较多，必须用药物治疗
-        </label>
-        <label>
-            <input type="checkbox" name="resistance" value="3">
-            一年内感冒次数较少，并有时需要吃药
-        </label>
-        <label>
-            <input type="checkbox" name="resistance" value="4">
-            一年内不感冒或患上几次感冒，并且感冒有时不吃药就能好
-        </label>
-    </section>
-    <section>
-        <h2>视力</h2>
-        <label>
-            <input type="checkbox" name="vision" value="1">
-            常使用滴眼液来缓解眼疲劳，眼睑经常发炎，视力低下严重
-        </label>
-        <label>
-            <input type="checkbox" name="vision" value="2">
-            视力在3.0以上，眼睑有时发炎，常使用滴眼液来缓解眼疲劳
-        </label>
-        <label>
-            <input type="checkbox" name="vision" value="3">
-            视力在3.9以上，眼睑不发炎，不常使用滴眼液
-        </label>
-        <label>
-            <input type="checkbox" name="vision" value="4">
-            视力在4.5以上，眼睛明亮，反应敏锐，眼睑不发炎
-        </label>
-    </section>
-    <section>
-        <h2>牙齿</h2>
-        <label>
-            <input type="checkbox" name="tooth" value="1">
-            牙表面出现裂痕，缺乏光泽。有牙龈炎、牙周炎等
-        </label>
-        <label>
-            <input type="checkbox" name="tooth" value="2">
-            有蛀牙，牙齿疼痛，有明显牙渍；牙龈红肿，刷牙出血
-        </label>
-        <label>
-            <input type="checkbox" name="tooth" value="3">
-            牙齿偏黄，无龋齿，有的牙齿疼痛；牙龈颜色稍不正常，有时刷牙出血
-        </label>
-        <label>
-            <input type="checkbox" name="tooth" value="4">
-            牙齿清洁，无空洞，无龋齿，无痛感；齿龈颜色正常，很少出血
-        </label>
-    </section>
-    <section>
-        <h2>头发</h2>
-        <label>
-            <input type="checkbox" name="hair" value="1">
-            头发干枯，头屑很多，头皮很痒
-        </label>
-        <label>
-            <input type="checkbox" name="hair" value="2">
-            头发无光泽，头屑洗不干净，头皮经常发痒
-        </label>
-        <label>
-            <input type="checkbox" name="hair" value="3">
-            头发有光泽，有些许头屑，洗头之前比较痒
-        </label>
-        <label>
-            <input type="checkbox" name="hair" value="4">
-            头发有光泽，时刻无头屑
-        </label>
-    </section>
-    <section>
-        <h2>肌肉和皮肤</h2>
-        <label>
-            <input type="checkbox" name="skin" value="1">
-            肌肉、皮肤没有弹性，很松弛，走路总感到很沉重，没有力量。并且可能患上骨关节疾病
-        </label>
-        <label>
-            <input type="checkbox" name="hair" value="2">
-            肌肉、皮肤弹性较差，走路比较吃力，肌肉没有力量
-        </label>
-        <label>
-            <input type="checkbox" name="hair" value="3">
-            肌肉、皮肤比较有弹性，走路不太轻松
-        </label>
-        <label>
-            <input type="checkbox" name="hair" value="4">
-            肌肉、皮肤富有弹性，走路轻松有力
-        </label>
-    </section>
-    <button>提交</button>
+    </div>
+    <div class="weui_cells">
+        <a href="javascript:;" v-on:click="score" class="weui_btn weui_btn_primary">测试</a>
+    </div>
 </form>
+
+<div id="result" style="display: none">
+    <article class="weui_article">
+        <div class="weui_panel weui_panel_access">
+            <div class="weui_panel_hd">测试结果</div>
+            <div class="weui_panel_bd">
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">得分</h4>
+                    <p class="weui_media_desc">{{score}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">评价</h4>
+                    <p class="weui_media_desc">身体健康状态{{desc}}</p>
+                </div>
+            </div>
+        </div>
+        <div style="background: gray; width: 80vw; height: 60vh; margin:0 auto;" id="chart"></div>
+        <div class="weui_panel weui_panel_access">
+            <div class="weui_panel_hd">健康意见</div>
+            <div class="weui_panel_bd">
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">心理健康方面</h4>
+                    <p class="weui_media_desc" v-for="item in mental">{{item}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">生活作息</h4>
+                    <p class="weui_media_desc" v-for="item in rest">{{item}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">锻炼</h4>
+                    <p class="weui_media_desc" v-for="item in exercise">{{item}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">饮食</h4>
+                    <p class="weui_media_desc" v-for="item in diet">{{item}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">备注</h4>
+                    <p class="weui_media_desc" v-for="item in remarks">{{item}}</p>
+                </div>
+            </div>
+            <a href="healthy.html" class="weui_panel_ft">重新测试</a>
+        </div>
+    </article>
+</div>
+
+<script src="../node_modules/vue/dist/vue.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/echarts/dist/echarts.min.js"></script>
+<script src="./healthy.js"></script>
 </body>
 </html>
