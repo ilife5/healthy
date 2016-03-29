@@ -93,7 +93,6 @@ $(function() {
                             }, adviser[getGroup(model.age)])
                         });
                         window.scrollTo(0,0);
-                        $("#banner").attr("src", "images/healthcare.jpggsb");
                         drayRadar(model);
                     }
                 }
