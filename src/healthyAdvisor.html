@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>智能健康顾问, 关心一下自己的健康也是萌萌哒.</title>
+    <link rel="stylesheet" href="../node_modules/weui/dist/style/weui.min.css"/>
+    <style>
+        .v-hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<img src="images/case.jpg" width="100%" id="banner">
+<div id="case">
+    <div class="weui_panel_hd">您的智能健康顾问</div>
+    <div class="weui_panel_bd">
+        <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" role="diagnose">
+            <div class="weui_media_hd">
+                <img class="weui_media_appmsg_thumb" src="images/tooopen.jpg">
+            </div>
+            <div class="weui_media_bd">
+                <h4 class="weui_media_title">智能诊断</h4>
+                <p class="weui_media_desc">根据您的信息提供您一份专业的诊断结果和建议。</p>
+            </div>
+        </a>
+    </div>
+    <a class="weui_panel_ft" href="javascript:void(0);" role="diagnose">点击进入测试</a>
+</div>
+<form id="healthy" class="v-hide">
+    <div class="weui_cells_title">基本信息</div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">身高</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input  class="weui_input" v-model="height" type="tel" name="height" placeholder="请输入身高(cm)">
+            </div>
+        </div>
+    </div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">体重</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" v-model="weight" type="tel" name="weight" placeholder="请输入体重(kg)">
+            </div>
+        </div>
+    </div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">年龄</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" v-model="age" type="tel" name="age" placeholder="请输入年龄">
+            </div>
+        </div>
+    </div>
+    <div class="weui_cells_title">精力(单选)</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in energyList" for="energy_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="energy" type="radio" class="weui_check" value="{{index}}" name="energy" id="energy_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui_cells_title">心态(单选)</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in mentalityList" for="mentality_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="mentality" type="radio" class="weui_check" value="{{index}}" name="mentality" id="mentality_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui_cells_title">睡眠(单选)</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in sleepList" for="sleep_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="sleep" type="radio" class="weui_check" value="{{index}}" name="sleep" id="sleep_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui_cells_title">应变能力(单选)</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in adaptabilityList" for="adaptability_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="adaptability" type="radio" class="weui_check" value="{{index}}" name="adaptability" id="adaptability_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui_cells_title">抵抗力(单选)</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in resistanceList" for="resistance_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="resistance" type="radio" class="weui_check" value="{{index}}" name="resistance" id="resistance_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui_cells_title">视力(单选)</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in visionList" for="vision_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="vision" type="radio" class="weui_check" value="{{index}}" name="vision" id="vision_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui_cells_title">牙齿(单选)</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in toothList" for="tooth_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="tooth" type="radio" class="weui_check" value="{{index}}" name="tooth" id="tooth_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui_cells_title">头发(单选)</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in hairList" for="hair_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="hair" type="radio" class="weui_check" value="{{index}}" name="hair" id="hair_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui_cells_title">肌肉和皮肤(单选)</div>
+    <div class="weui_cells weui_cells_radio">
+        <label class="weui_cell weui_check_label" v-for="(index, item) in skinList" for="skin_{{index}}">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{{item}}</p>
+            </div>
+            <div class="weui_cell_ft">
+                <input v-model="skin" type="radio" class="weui_check" value="{{index}}" name="skin" id="skin_{{index}}">
+                <span class="weui_icon_checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui_cells">
+        <a href="javascript:;" v-on:click="score" class="weui_btn weui_btn_primary">测试</a>
+    </div>
+</form>
+
+<div id="result" style="display: none">
+    <article class="weui_article">
+        <h1>测试结果</h1>
+        <div class="weui_panel weui_panel_access">
+            <div class="weui_panel_bd">
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">得分</h4>
+                    <p class="weui_media_desc">{{score}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">评价</h4>
+                    <p class="weui_media_desc">身体健康状态{{desc}}</p>
+                </div>
+            </div>
+        </div>
+        <div style="background: gray; width: 80vw; height: 60vh; margin:0 auto;" id="chart"></div>
+        <div class="weui_panel weui_panel_access">
+            <div class="weui_panel_hd">健康意见</div>
+            <div class="weui_panel_bd">
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">心理健康方面</h4>
+                    <p class="weui_media_desc" v-for="item in mental">{{item}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">生活作息</h4>
+                    <p class="weui_media_desc" v-for="item in rest">{{item}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">锻炼</h4>
+                    <p class="weui_media_desc" v-for="item in exercise">{{item}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">饮食</h4>
+                    <p class="weui_media_desc" v-for="item in diet">{{item}}</p>
+                </div>
+                <div class="weui_media_box weui_media_text">
+                    <h4 class="weui_media_title">备注</h4>
+                    <p class="weui_media_desc" v-for="item in remarks">{{item}}</p>
+                </div>
+            </div>
+            <a href="healthy.html" class="weui_panel_ft">重新测试</a>
+        </div>
+    </article>
+</div>
+
+<script src="../node_modules/vue/dist/vue.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/echarts/dist/echarts.min.js"></script>
+<script src="./healthy.js"></script>
+</body>
+</html>
