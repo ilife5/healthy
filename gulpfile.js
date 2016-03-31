@@ -14,8 +14,10 @@ gulp.task("imgMin", function() {
         }))
         .pipe(rev())
         .pipe(gulp.dest('public/images'))
-        .pipe(rev.manifest())
-        .pipe(gulp.dest('public/assets')); // write manifest to build dir
+        .pipe(rev.manifest('public/assets/rev-manifest.json', {
+            merge: true
+        }))
+        .pipe(gulp.dest('./')); // write manifest to build dir
 });
 
 gulp.task('lint', function() {
@@ -24,7 +26,7 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task("prd_js", ['lint', 'imgMin'], function() {
+gulp.task("prd_js", ['lint'], function() {
     return gulp.src('src/*.js')
         .pipe(uglify())
         .pipe(rev())
@@ -35,7 +37,7 @@ gulp.task("prd_js", ['lint', 'imgMin'], function() {
         .pipe(gulp.dest('./'));
 });
 
-gulp.task("prd_html", [], function() {
+gulp.task("prd_html", ["imgMin", "prd_js"], function() {
     var manifest = gulp.src("public/assets/rev-manifest.json");
 
     return gulp.src("src/*.html")
