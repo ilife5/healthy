@@ -9,6 +9,9 @@
         .v-hide {
             display: none;
         }
+        ol {
+            padding-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -194,23 +197,33 @@
             <div class="weui_panel_bd">
                 <div class="weui_media_box weui_media_text">
                     <h4 class="weui_media_title">心理健康方面</h4>
-                    <p class="weui_media_desc" v-for="item in mental">{{item}}</p>
+                    <ol>
+                        <li v-for="item in mental">{{item}}</li>
+                    </ol>
                 </div>
                 <div class="weui_media_box weui_media_text">
                     <h4 class="weui_media_title">生活作息</h4>
-                    <p class="weui_media_desc" v-for="item in rest">{{item}}</p>
+                    <ol>
+                        <li v-for="item in rest">{{item}}</li>
+                    </ol>
                 </div>
                 <div class="weui_media_box weui_media_text">
                     <h4 class="weui_media_title">锻炼</h4>
-                    <p class="weui_media_desc" v-for="item in exercise">{{item}}</p>
+                    <ol>
+                        <li v-for="item in exercise">{{item}}</li>
+                    </ol>
                 </div>
                 <div class="weui_media_box weui_media_text">
                     <h4 class="weui_media_title">饮食</h4>
-                    <p class="weui_media_desc" v-for="item in diet">{{item}}</p>
+                    <ol>
+                        <li v-for="item in diet">{{item}}</li>
+                    </ol>
                 </div>
                 <div class="weui_media_box weui_media_text">
                     <h4 class="weui_media_title">备注</h4>
-                    <p class="weui_media_desc" v-for="item in remarks">{{item}}</p>
+                    <ol>
+                        <li v-for="item in remarks">{{item}}</li>
+                    </ol>
                 </div>
             </div>
             <a href="healthy.html" class="weui_panel_ft">重新测试</a>

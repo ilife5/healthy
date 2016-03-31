@@ -120,7 +120,7 @@ $(function() {
 
             if(validate(data)) {
                 keys.forEach(function(key) {
-                    model[key] = [25, 50, 75, 100][data[key]]
+                    model[key] = [25, 50, 75, 100][data[key]];
                 });
             } else {
                 alert("有未填写的项");
@@ -139,7 +139,7 @@ $(function() {
                 "adaptability", "resistance", "vision", "tooth", "hair", "skin"];
 
             for(var i = 0; i < keys.length; i++) {
-                if((data[keys[i]] + "").trim() == "") {
+                if((data[keys[i]] + "").trim() === "") {
                     return false;
                 }
             }
@@ -167,11 +167,11 @@ $(function() {
                             { text: '睡眠', max: 100 },
                             { text: '心态', max: 100 },
                             { text: '抵抗力', max: 100 },
-                            { text: '肌肉和皮肤', max: 100 },
-                            { text: '头发', max: 100 },
-                            { text: '视力', max: 100 },
                             { text: '身材', max: 100 },
-                            { text: '牙齿', max: 100 }
+                            { text: '视力', max: 100 },
+                            { text: '牙齿', max: 100 },
+                            { text: '头发', max: 100 },
+                            { text: '肌肉和皮肤', max: 100 }
                         ]
                     }
                 ],series: [
